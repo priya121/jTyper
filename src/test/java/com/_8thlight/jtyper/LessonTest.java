@@ -8,17 +8,14 @@ import static org.junit.Assert.assertEquals;
 
 public class LessonTest {
 
+    private final ByteArrayOutputStream out = new ByteArrayOutputStream();
+
     @Test
     public void runsSingleLineLesson() throws IOException {
         String lessonText = "test run";
-        String inputText = "test run";
-        InputStream in = new ByteArrayInputStream(toBytes(inputText));
+        String typistInput = "test run";
 
-        ByteArrayOutputStream out = new ByteArrayOutputStream();
-        PrintStream ps = new PrintStream(out);
-
-        Lesson lesson = new Lesson(in, ps, lessonText);
-        lesson.run();
+        buildLesson(typistInput, lessonText).run();
 
         assertEquals(lessonText + "\n" + lessonText, out.toString());
     }
@@ -26,17 +23,28 @@ public class LessonTest {
     @Test
     public void stopsReadingOnceLessonComplete() throws IOException {
         String lessonText = "test run";
-        String inputText = "test runnnnn";
-        InputStream in = new ByteArrayInputStream(toBytes(inputText));
+        String typistInput = "test runnnnn";
 
-        ByteArrayOutputStream out = new ByteArrayOutputStream();
-        PrintStream ps = new PrintStream(out);
-
-        Lesson lesson = new Lesson(in, ps, lessonText);
-        lesson.run();
+        buildLesson(typistInput, lessonText).run();
 
         assertEquals(lessonText + "\n" + lessonText, out.toString());
+    }
 
+    @Test
+    public void forcesTypistToCorrectMistake() throws IOException {
+        String lessonText = "test run";
+        String typistInput = "testabc run";
+
+        buildLesson(typistInput, lessonText).run();
+
+        String expectedOutput = lessonText + "\n" + "testa\bb\bc\b run";
+        assertEquals(expectedOutput, out.toString());
+    }
+
+    private Lesson buildLesson(String typistInput, String lessonText) {
+        InputStream in = new ByteArrayInputStream(toBytes(typistInput));
+        PrintStream ps = new PrintStream(out);
+        return new Lesson(in, ps, lessonText);
     }
 
     private byte[] toBytes(String text) {
