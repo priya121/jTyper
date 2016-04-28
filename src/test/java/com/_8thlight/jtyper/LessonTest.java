@@ -1,3 +1,5 @@
+package com._8thlight.jtyper;
+
 import org.junit.Test;
 
 import java.io.*;

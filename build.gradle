@@ -1,4 +1,4 @@
-group 'com.8thlight'
+group 'com._8thlight'
 version '1.0-SNAPSHOT'
 
 apply plugin: 'java'
