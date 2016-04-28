@@ -1,0 +1,27 @@
+* Text should be displayed on screen with a line underneath that is filled in e.g.
+* Text is cut at 80 characters.
+
+The research getaway went well. In the space of a week, I only left my hotel to
+_______________________________________________________________________________
+
+buy diet coke. It seems to have spoiled me a bit, the little distractions in
+____________________________________________________________________________
+
+the office grate on me a bit more since. I will likely make week long research
+______________________________________________________________________________
+
+excursions a fairly regular thing during non-crunch time. Once a quarter sounds
+_______________________________________________________________________________
+
+about right.
+____________
+
+--- John Cormack's .plan file, Feb 04, 1998
+___________________________________________
+
+
+* When an incorrect letter is typed, it should:
+   * beep
+   * display the incorrect letter typed in red
+   * stop the user entering more characters.
+   * the user can correct the mistake by simply typing the correct letter - no backspace or delete is required
