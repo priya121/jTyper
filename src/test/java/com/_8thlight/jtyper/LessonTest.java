@@ -3,6 +3,7 @@ package com._8thlight.jtyper;
 import org.junit.Test;
 
 import java.io.*;
+import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 
@@ -39,6 +40,22 @@ public class LessonTest {
 
         String expectedOutput = lessonText + "\n" + "testa\bb\bc\b run";
         assertEquals(expectedOutput, out.toString());
+    }
+
+    @Test
+    public void returnsErrors() throws IOException {
+        String lessonText = "test run";
+        String typistInput = "testabc run";
+
+        Lesson lesson = buildLesson(typistInput, lessonText);
+        lesson.run();
+
+        List<Mistake> mistakes = lesson.mistakes().getMistakes();
+        assertEquals(3, mistakes.size());
+        assertEquals(new Mistake(4, 'a'), mistakes.get(0));
+        assertEquals(new Mistake(4, 'b'), mistakes.get(1));
+        assertEquals(new Mistake(4, 'c'), mistakes.get(2));
+
     }
 
     private Lesson buildLesson(String typistInput, String lessonText) {
